@@ -15,29 +15,29 @@
     <script>
 
         function generate(){
-            var url = url_form.url_input.value
+            var url = url_form.url_input.value;
             if( url == ""){
-                document.getElementById("url_output").innerHTML="输入值不能为空！"
-                alert("输入值不能为空！")
-                url_form.url_input.focus()
+                document.getElementById("url_output").innerHTML="输入值不能为空！";
+                alert("输入值不能为空！");
+                url_form.url_input.focus();
             }
             else if(url.substr(0, 8) == "https://" || url.substr(0, 7) == "http://"){
-                var urlKey = window.btoa(url)
-                var submitUrl = "http.lrhtony.cn://.bilibili.com/jump.html?key=" + urlKey
-                submitUrl = window.btoa(submitUrl)
-                makeUrl = "https://b23-tv.lrhtony.cn/api/post?url=" + submitUrl
-                console.log(makeUrl)
+                var urlKey = window.btoa(url);
+                var submitUrl = "http.lrhtony.cn://.bilibili.com/jump.html?key=" + urlKey;
+                submitUrl = window.btoa(submitUrl);
+                makeUrl = "https://b23-tv.lrhtony.cn/api/post?url=" + submitUrl;
+                console.log(makeUrl);
                 $.get(makeUrl,function(data,status){
-                    var patt = /"content":"(.*?)"/
-                    b23Url = patt.exec(data)[1]
-                    console.log(b23Url)
-                    document.getElementById("url_output").innerHTML=b23Url
+                    var patt = /"content":"(.*?)"/;
+                    b23Url = patt.exec(data)[1];
+                    console.log(b23Url);
+                    document.getElementById("url_output").innerHTML=b23Url;
                 })
             }
             else{
-                document.getElementById("url_output").innerHTML="请检查链接是否正确！"
-                alert("请检查链接是否正确！")
-                url_form.url_input.focus()
+                document.getElementById("url_output").innerHTML="请检查链接是否正确！";
+                alert("请检查链接是否正确！");
+                url_form.url_input.focus();
             }
         }
     </script>
