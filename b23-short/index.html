@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8"> 
+    <script src="jquery-3.5.1.min.js"></script>
+    <title>b23.tv短链生成器</title>
+</head>
+<body>
+    <form name="url_form">
+        请输入链接（需包含http或https请求头）：<input type="text" name="url" id="url_input"><br>
+        <input type="button" name="submit" onclick="generate()" value="生成">
+    </form>
+    <br><br>
+    下面显示结果：
+    <h1 id="url_output"></h1>
+    <script>
+
+        function generate(){
+            var url = url_form.url_input.value
+            if( url == ""){
+                document.getElementById("url_output").innerHTML="输入值不能为空！"
+                alert("输入值不能为空！")
+                url_form.url_input.focus()
+            }
+            else if(url.substr(0, 8) == "https://" || url.substr(0, 7) == "http://"){
+                var urlKey = window.btoa(url)
+                var submitUrl = "http.lrhtony.cn://.bilibili.com/jump.html?key=" + urlKey
+                submitUrl = window.btoa(submitUrl)
+                makeUrl = "https://b23-tv.lrhtony.cn/api/post?url=" + submitUrl
+                console.log(makeUrl)
+                $.get(makeUrl,function(data,status){
+                    var patt = /"content":"(.*?)"/
+                    b23Url = patt.exec(data)[1]
+                    console.log(b23Url)
+                    document.getElementById("url_output").innerHTML=b23Url
+                })
+            }
+            else{
+                document.getElementById("url_output").innerHTML="请检查链接是否正确！"
+                alert("请检查链接是否正确！")
+                url_form.url_input.focus()
+            }
+        }
+    </script>
+    <br><br><br>
+    <h3>使用提示</h3>
+    1.目前该功能还在测试，只是利用了B站的一个bug生成短链接，仅供学习，请勿随意传播；<br>
+    2.跳转时使用了weixinbridge来防止违法网站的跳转，如果无法用微信浏览器打开的网站，这里也打不开；<br>
+    3.严禁使用该网站生成违法网站的短链接；<br>
+    4.不保证使用本网站生成的短链接有效性，因为B站随时可能修复这个bug，又或者将生成的第三方短链清除；<br>
+    5.本站不存储任何数据，不保证最终重定向的网站内容是否正确；<br>
+    6.如有任何使用该网站的bug，欢迎反馈到<a href="mailto:feedback@lrhtony.cn">feedback@lrhtony.cn</a>；<br>
+    7.别问为什么不写css，问就是不会，代码也是到处复制粘贴的（doge）。<br>
+</body>
