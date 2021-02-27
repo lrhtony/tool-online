@@ -25,11 +25,11 @@
                 var urlKey = window.btoa(url);
                 var submitUrl = "http.lrhtony.cn://.bilibili.com/jump.html?key=" + urlKey;
                 submitUrl = window.btoa(submitUrl);
-                makeUrl = "https://b23-tv.lrhtony.cn/api/post?url=" + submitUrl;
+                var makeUrl = "https://b23-tv.lrhtony.cn/api/post?url=" + submitUrl;
                 console.log(makeUrl);
                 $.get(makeUrl,function(data,status){
                     var patt = /"content":"(.*?)"/;
-                    b23Url = patt.exec(data)[1];
+                    var b23Url = patt.exec(data)[1];
                     console.log(b23Url);
                     document.getElementById("url_output").innerHTML=b23Url;
                 })
