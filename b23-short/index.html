@@ -21,6 +21,7 @@
                 submitUrl = window.btoa(submitUrl);
                 var makeUrl = "https://b23-tv.lrhtony.cn/api/post?url=" + submitUrl;
                 console.log(makeUrl);
+                document.getElementById("url_output").innerHTML="正在生成...";
                 var xhr = new XMLHttpRequest();
                 xhr.open("GET", makeUrl, true);
                 xhr.send();
