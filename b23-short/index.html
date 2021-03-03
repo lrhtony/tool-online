@@ -19,20 +19,24 @@
                 var urlKey = window.btoa(url);
                 var submitUrl = "http.lrhtony.cn://.bilibili.com/jump.html?key=" + urlKey;
                 submitUrl = window.btoa(submitUrl);
-                var makeUrl = "https://b23-tv.lrhtony.cn/api/post?url=" + submitUrl;
+                var makeUrl = "https://api.lrhtony.cn/api/b23?url=" + submitUrl;
                 console.log(makeUrl);
                 document.getElementById("url_output").innerHTML="正在生成...";
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", makeUrl, true);
-                xhr.send();
-                xhr.onreadystatechange = function(){
-                    if (xhr.readyState == 4 && xhr.status == 200){
-                        var res = xhr.responseText;
-                        var patt = /"content":"(.*?)"/;
-                        var b23Url = patt.exec(res)[1];
-                        console.log(b23Url);
-                        document.getElementById("url_output").innerHTML=b23Url;
+                try {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("GET", makeUrl, true);
+                    xhr.send();
+                    xhr.onreadystatechange = function(){
+                        if (xhr.readyState == 4 && xhr.status == 200){
+                            var res = xhr.responseText;
+                            var patt = /"content":"(.*?)"/;
+                            var b23Url = patt.exec(res)[1];
+                            console.log(b23Url);
+                            document.getElementById("url_output").innerHTML=b23Url;
+                        }
                     }
+                } catch (error) {
+                    document.getElementById("url_output").innerHTML='发生错误请重试';
                 }
             }
             else{
@@ -45,11 +49,14 @@
     <br><br><br>
     <h3>使用提示</h3>
     0.受服务器影响，短链接生成速度可能较慢；相关api已启用cloudflare缓存，一定时间内同一个网址只会生成1个短链接，如需生成新的链接请2小时后再试；<br>
-    1.目前该功能还在测试，只是利用了B站的一个bug生成短链接，仅供学习，请勿随意传播（ps：可能是第一个用这个bug实现外链跳转的人？）；<br>
+    1.目前该功能还在测试，只是利用了B站的一个bug生成短链接，仅供学习，请勿随意传播；<br>
     2.跳转时使用了weixinbridge来防止违法网站的跳转，如果无法用微信浏览器打开的网站，这里也打不开；<br>
     3.严禁使用该网站生成违法网站的短链接；<br>
-    4.不保证使用本网站生成的短链接有效性，因为B站随时可能修复这个bug，又或者将生成的第三方短链清除；<br>
-    5.本站不存储任何数据，不保证最终重定向的网站内容是否正确；<br>
-    6.如有任何使用该网站的bug，欢迎反馈到<a href="mailto:feedback@lrhtony.cn">feedback@lrhtony.cn</a>；<br>
+    4.不保证使用本网站生成的短链接有效性，因为B站随时可能修复这个bug，又或者将已经生成的第三方短链清除；<br>
+    5.本站不存储任何数据，不保证最终重定向的网站内容是否合规；<br>
+    6.如有任何使用时产生的bug，欢迎反馈到<a href="mailto:feedback@lrhtony.cn">feedback@lrhtony.cn</a>；<br>
     7.别问为什么不写css，问就是不会，代码也是到处复制粘贴的（doge）。<br>
+
+    <h3>目前已知bug：</h3>
+    1.发送get请求时间歇性出现dns问题，如长时间无反应可再次点击按钮
 </body>
