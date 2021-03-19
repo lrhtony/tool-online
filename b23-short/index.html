@@ -17,9 +17,7 @@
             var url = url_form.url_input.value;
             if(url.substr(0, 8) == "https://" || url.substr(0, 7) == "http://"){
                 var urlKey = window.btoa(url);
-                var submitUrl = "http.lrhtony.cn://.bilibili.com/jump.html?key=" + urlKey;
-                submitUrl = window.btoa(submitUrl);
-                var makeUrl = "https://api.lrhtony.cn/api/b23?url=" + submitUrl;
+                var makeUrl = "https://api.lrhtony.cn/api/b23?url=" + urlKey;
                 console.log(makeUrl);
                 document.getElementById("url_output").innerHTML="正在生成...";
                 try {
